@@ -57,3 +57,43 @@ def count():
 
     window1.protocol("WM_DELETE_WINDOW", window.destroy)
     window1.mainloop()
+
+
+def keywords():
+    window.withdraw()
+    window2 = Toplevel()
+    window2.title('最高词频')
+    window2.geometry('400x400')
+    
+    with open('The Making of Isaac Newton.txt') as f:
+        text = f.read()
+    text = text.replace('\n',' ').replace(',',' ').replace('.',' ')
+    words = []
+    infos = text.split(' ')
+    for info in infos:
+        if info != '':
+            words.append(info)
+    c = dict(Counter(words).most_common(6))
+    var = list(c.keys())
+    var = '\n'.join(var)
+    print(c)
+    
+    t1 = Text(window2,height=10,width=10,font=('simhei',16))
+    t1.pack()
+    t1.insert('end',var)
+    window2.protocol("WM_DELETE_WINDOW", window.destroy)
+    window2.mainloop()
+
+b1 = ttk.Button(window,text='单词个数统计',command=count)
+b1.grid(row = 0, column = 0, padx = 20, pady = 18)
+
+b2 = ttk.Button(window,text='最高词频统计表',command=table)
+b2.grid(row = 0, column = 1, padx = 20, pady = 18)
+
+b3 = ttk.Button(window,text='词频统计',command=word_times)
+b3.grid(row = 0, column = 2, padx = 20, pady = 18)
+
+b4 = ttk.Button(window,text='点击此处进行文本处理',command=text_done)
+b4.grid(row = 1, column = 0, columnspan = 3, padx = 20, pady = 0, ipadx = 50)
+
+window.mainloop()
